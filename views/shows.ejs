@@ -1,0 +1,110 @@
+
+<%- include ('partials/header') -%>
+<style>
+    body{
+        background-color: rgb(85, 85, 217);
+        overflow:hidden ;
+    }
+    .post{
+        border: 2px solid white;
+        height: 500;
+        width: 600px;
+        padding: 0px;
+        margin-top: 25px;
+        background-color: white;
+        display: block;
+        overflow: scroll;
+        border-radius: 12px;
+        box-shadow:  rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+       
+    }
+    .comment{
+        border: 2px solid white;
+        margin-top: 25px;
+        height: 500px;
+        width: 800px;
+        overflow: scroll;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow:  rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        font-size: 15px;
+    }
+    .post p{
+       font-size: 15px;
+    }
+    .post img{
+      height:200px;
+      width: 96%;
+    }
+    .container-box{
+        margin-left:30px;
+        display: flex;
+        justify-content: space-around;
+      
+    }
+    .post .button{
+        margin-left: 40%;
+        margin-top: 12px;
+        display: flex;
+        gap: 2px;
+    }
+    .section{
+       margin-top: 10px;
+       margin-left: 10px;
+       overflow: scroll;
+       border-radius: 10px;
+       height:160px;
+       border: 2px solid  WHITE;
+       background-color:  white;
+       box-shadow:  rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+      
+    }
+    .section p{
+        font-size: 16px;
+        text-align: left;
+        margin-left: 12px;
+    }
+    #delete{
+        float: left;
+        margin-left: 12px;
+    }
+</style>
+
+<div class="container-box">
+    <%posts.forEach((post)=>{%>
+    <div class="post">
+        <h1>Title:<%=post.title%></h3>
+        <img src="<%=post.image%>" alt="">
+        <p>Description: <%=post.description%></p>
+        <p>Name :<%=post.user.name%></p>
+        <p>Email:<%=post.user.email%></p>
+        <form action="/addcomment/<%=post._id%>" method="post">
+          <h3>comments</h3>
+          <input type="text" name="comment" id="">
+          <input type="submit" value="submit">
+        </form>
+        <div class="button">
+            <form action="/show/edit/<%=post._id%>" method="get">
+                <input type="submit" value="update">
+             </form>
+              <form action="/show/deletepost/<%=post._id%>" method="post">
+                 <input type="submit" value="delete">
+              </form>
+        </div>
+     </div>
+    <%})%>
+     <div class="comment">
+        <%comments.forEach((comment)=>{%>
+        <div class="section">
+        <p>Name:<%=comment.user.name%> </p>
+        <!-- <p>Name:<%=comment._id%> </p> -->
+        <p>Comment:<%=comment.comment%></p>
+        <p>Date:<%=comment.createdAt%></p>
+        <form action="/deletecomment/<%=comment._id%>" method="post">
+            <input type="submit" value="delete" id="delete">
+          </form>    
+       </div>
+        
+       <%})%>
+      </div>
+</div>

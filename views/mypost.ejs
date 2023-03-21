@@ -1,0 +1,93 @@
+
+<%- include ('partials/header') -%>
+<style>
+    body{
+        background-color: rgb(85, 85, 217);
+        overflow:hidden ;
+    }
+    .post{
+        border: 2px solid white;
+        height: 300px;
+        width: 400px;
+        padding: 0px;
+        margin-top: 25px;
+        background-color: white;
+        display: block;
+        overflow: scroll;
+        border-radius: 12px;
+        box-shadow:  rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    }
+    .comment{
+        border: 2px solid ;
+        margin-top: 25px;
+        height: 500px;
+        width: 800px;
+        overflow: scroll;
+        background-color: white;
+        border-radius: 12px;
+        box-shadow:  rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+        font-size: 15px;
+    }
+    .post h3{
+        text-align: center;
+    }
+    .post a{
+        margin-left: 106px;
+        color: black;
+    }
+    .link:hover{
+        color: red;
+    }
+    .post p{
+       font-size: 15px;
+    }
+    .post .link{
+        margin-left: 42%;
+        color: black;
+    }
+    .link:hover{
+     color:red
+   }
+    .post img{
+      display: block;
+      height: 150px;
+      width:90%;
+      margin: auto;
+      margin-top: 50px;
+    }
+    .container-box{
+        margin-left:30px;
+        display: flex;
+        gap:12px;
+        flex-wrap: wrap;
+    }
+    .section{
+       margin-top: 10px;
+       margin-left: 10px;
+       overflow: scroll;
+       border-radius: 10px;
+       height:160px;
+       border: 2px solid  WHITE;
+       background-color:  white;
+       box-shadow:  rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
+    }
+    .section p{
+        font-size: 16px;
+        text-align: left;
+        margin-left: 12px;
+    }
+    #delete{
+        float: left;
+        margin-left: 12px;
+        
+    }
+</style>
+<div class="container-box">
+    <%posts.forEach((post)=>{%>
+    <div class="post">
+        <img src="<%=post.image%>",alt="">
+        <h3><%=post.title%></h3>
+        <a href="/getmypost/<%=post._id%>" class="link">read more</a>
+    </div>
+    <%})%>
+</div>

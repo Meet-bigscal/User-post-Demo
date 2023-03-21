@@ -1,0 +1,35 @@
+<%- include ('partials/header') -%>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Post</title>
+    
+</head>
+<body>
+
+    <%posts.forEach((post)=>{%>
+    <div class="ui main text container segment">
+        <div class="ui huge header"> EDIT POST</div>
+          <form action="/edit/<%=post._id%>" method="POST" class="ui form" enctype="multipart/form-data">
+            <div class="field">
+                <label> Title: </label>
+                <input type="text" name="title"   value="<%=post.title%>" placeholder="title" >
+            </div>
+
+            <div class="field">
+                <label> Image  </label>
+                <input type="file" name="image" id="fileupload" placeholder="image or video" >
+            </div>
+             <div class="field">
+                    <label> Description: </label>
+                    <textarea name="description"><%=post.description%></textarea>
+             </div>
+             <input type="submit" class="ui violet basic button">
+          </form>
+    </div>
+    <%})%>
+</body>
+</html>

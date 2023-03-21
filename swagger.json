@@ -1,0 +1,563 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "DEMO PROJECT",
+    "description": "post-user tasks",
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "tags": [
+    {
+      "name": "Users"
+    },
+    {
+      "name": "Posts"
+    },
+    {
+      "name": "Comment"
+    }
+  ],
+  "schemes": [
+    "http",
+    "https"
+  ],
+  "paths": {
+    "/registration": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Registration for user",
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "create new user",
+            "schema": {
+              "type": "object",
+              "required": [
+                "name",
+                "username",
+                "email",
+                "password",
+                "confirmpassword"
+              ],
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "username": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                },
+                "confirmpassword": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "create new user",
+            "schema": {
+              "allof": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "username": {
+                          "type": "string"
+                        },
+                        "email": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Login System for the User",
+        "security": [],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "body",
+            "description": "Login account",
+            "schema": {
+              "type": "object",
+              "required": [
+                "email",
+                "password"
+              ],
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "password": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Login account",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/loginresponse"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/logout": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "summary": "Logout System for the User",
+        "security": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Logout Account",
+            "schema": {
+              "allof": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/getpost": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Get All posts",
+        "security": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get All Posts",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/post"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/post": {
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Create  New  Post",
+        "consumes": [
+          "multipart/form-data"
+        ],
+        "parameters": [
+          {
+            "name": "image",
+            "type": "file",
+            "in": "formData",
+            "description": "Image",
+            "required": true
+          },
+          {
+            "name": "title",
+            "type": "string",
+            "in": "formData",
+            "description": "Title",
+            "required": true
+          },
+          {
+            "name": "description",
+            "type": "string",
+            "in": "formData",
+            "description": "Description",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Create New Post",
+            "schema": {
+              "allof": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "title": {
+                          "type": "string"
+                        },
+                        "image": {
+                          "type": "string"
+                        },
+                        "description": {
+                          "type": "string"
+                        }
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/getuserpost/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID of post",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Get Post By ID",
+        "responses": {
+          "200": {
+            "description": "Get Post By ID",
+            "schema": {
+              "allof": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/mypost": {
+      "get": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Get my posts",
+        "security": [],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Get my Posts",
+            "schema": {
+              "allOf": [
+                {
+                  "$ref": "#/definitions/post"
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/edit/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID of post",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "image",
+          "type": "file",
+          "in": "formData",
+          "description": "Image"
+        },
+        {
+          "name": "title",
+          "type": "string",
+          "in": "formData",
+          "description": "Title"
+        },
+        {
+          "name": "description",
+          "type": "string",
+          "in": "formData",
+          "description": "Description"
+        }
+      ],
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Update Post By ID",
+        "responses": {
+          "200": {
+            "description": " Update Post By ID",
+            "schema": {
+              "allof": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/deletepost/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID of post",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Posts"
+        ],
+        "summary": "Delete Post By ID",
+        "responses": {
+          "200": {
+            "description": " Delete Post By ID",
+            "schema": {
+              "allof": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/addcomment/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID of post",
+          "type": "string",
+          "required": true
+        },
+        {
+          "name": "comment",
+          "in": "body",
+          "description": "comment",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Comment"
+        ],
+        "summary": "Create New Comment",
+        "responses": {
+          "200": {
+            "description": " Create New Comment",
+            "schema": {
+              "allof": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    "/deletecomment/{id}": {
+      "parameters": [
+        {
+          "name": "id",
+          "in": "path",
+          "description": "ID of Comment",
+          "type": "string",
+          "required": true
+        }
+      ],
+      "post": {
+        "tags": [
+          "Comment"
+        ],
+        "summary": "Delete Comment By ID",
+        "responses": {
+          "200": {
+            "description": " Delete Comment By ID",
+            "schema": {
+              "allof": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "boolean"
+                    },
+                    "data": {
+                      "type": "object"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "registration": {
+      "required": [
+        "name",
+        "username",
+        "email",
+        "password",
+        "confirmpassword"
+      ],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "confirmpassword": {
+          "type": "string"
+        }
+      }
+    },
+    "loginresponse": {
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "username": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "token": {
+          "type": "string"
+        }
+      }
+    },
+    "post": {
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "image": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
